@@ -11,3 +11,20 @@ ANALYSIS: Here this web page has a unprotected admin panel but the link is unpre
 In this particular task it is in the source code itself
 
 
+STEPS TO SOLVE
+
+STEP 1: First check for robots.txt file. It is a file for search engine crawlers. (Not present)
+
+STEP 2: look in the source code for any left over code that might help us
+        Js script present that gives us the admin page url.
+
+
+PYTHON SCRIPT
+
+Now we write a python script that will go into the admin panel and delete carlos automatically
+
+pseudo code
+First we go into the home page and extract the cookies 
+Second get the admin panel url from the js script
+Third go into the admin panel and delete carlos
+

